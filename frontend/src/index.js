@@ -4,11 +4,21 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { MetaMaskProvider } from "metamask-react";
+import store from "./state/store";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistStore } from "redux-persist";
+
+let persistor = persistStore(store);
 
 ReactDOM.render(
   <React.StrictMode>
     <MetaMaskProvider>
-      <App />
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <App />
+        </PersistGate>
+      </Provider>
     </MetaMaskProvider>
   </React.StrictMode>,
   document.getElementById("root")

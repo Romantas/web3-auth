@@ -82,10 +82,13 @@ app.post("/auth", async function (req, res, next) {
         // We now are in possession of msg, publicAddress and signature. We
         // will use a helper from eth-sig-util to extract the address from the signature
         const msgBufferHex = ethUtil.bufferToHex(Buffer.from(msg, "utf8"));
+
         const address = ethSig.recoverPersonalSignature({
           data: msgBufferHex,
           sig: signature,
         });
+
+        console.log(address);
 
         // The signature verification is successful if the address found with
         // sigUtil.recoverPersonalSignature matches the initial publicAddress
